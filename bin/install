@@ -1,0 +1,21 @@
+#!/bin/sh
+
+# https://github.com/visionmedia/express
+npm install --global express
+
+# https://github.com/wycats/handlebars.js
+npm install --global handlebars
+
+# https://github.com/visionmedia/connect-redis
+npm install --global connect-redis
+
+npm install --global mongodb --mongodb:native
+
+# https://github.com/idottv/node-mongodb-wrapper
+npm install --global mongodb-wrapper
+
+# https://github.com/brainfucker/hashlib
+npm install --global hashlib
+
+# https://github.com/chriso/node-validator
+npm install --global validator

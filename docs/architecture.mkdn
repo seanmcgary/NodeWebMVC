@@ -1,0 +1,152 @@
+Site Architecture
+===
+
+Users
+---
+- Free
+	- Unlimited free accounts
+	- Unlimited free wiki collaborators
+	- personalized url 
+		- Subdomain?
+		- markdownwiki.com/<wiki name>
+		- <wiki name>.markdownwiki.com
+	- See wikis a user is a part of
+		- markdownwiki.com/<username>
+- Paid
+	- Priviate Wikis (number based on plan)
+	- Private collaborators
+		- Depends on plan
+	- Custom domain
+		- CNAME
+
+Plans
+---
+Taking some cues from Githubs structure here.
+
+###Thoughts
+- For business plans, give them cloud storage?
+- No/limited storage for free/personal plans?
+- Open Source project plans?
+- Student plans?
+- Non-profit plans?
+
+###Personal
+- Mini
+	- $7/month
+	- 2 Private Wikis
+	- 1 Private collaborator/wiki
+- Small
+	- $12/month
+	- 5 Private Wikis
+	- 5 Private collaborators/wiki
+- Medium 
+	- $20/month
+	- 10 Private Wikis
+	- 5 Private collaborators/wiki
+
+###Business
+- Bronze
+	- $25/month
+	- 5 Private wikis
+	- Teams
+	- Unlimited collaborators/wiki
+- Silver
+	- $50/month
+	- 10 Private wikis
+	- Teams
+	- Unlimited collaborators/wiki
+- Gold
+	- $100/month
+	- 20 Private wikis
+	- Teams
+	- Unlimited collaborators/wiki
+- Platinum
+	- $200/month
+	- 30 Private wikis
+	- Teams
+	- Unlimited collaborators/wiki
+
+
+DB Structure
+---
+
+###user_collection
+- user_id
+- username
+- full_name
+- email
+- password
+- account_type (free || paid)
+
+###wiki_collection
+- wiki_id
+- wiki_name
+- wiki_url
+- owning_user_id
+- privacy (public || private)
+
+###wiki_pages_collection
+- wiki_page_id
+- wiki_page_title
+- current_revision <revision_id>
+
+###wiki_page_history_collection
+- wiki_page_id
+- revision_id
+- markdown_content
+- date_created
+- is_current
+- edited_by <user_id>
+
+###wiki_collaborators_collection
+- wiki_id
+- user_id
+
+URL Schemas
+---
+
+- `http://markdownwiki.com`
+- `http://markdownwiki.com/:username`
+	- `http://markdownwiki.com/:username/:wiki_name`
+		- `http://markdownwiki.com/:username/:wiki_name/:page_name`
+- `http://blog.markdownwiki.com`
+- `http://wiki.markdownwiki.com`
+- `http://help.markdownwiki.com`
+
+Application Features
+---
+- Account page provides the following
+	- Create new Wiki (public/private)
+	- Manage Existing Wiki
+		- Delete wiki
+		- Manage collaborators
+		- Edit wiki name
+		- Edit wiki url
+		- Edit wiki privacy (public/private if paid)
+		- Transfer ownership to other user
+	- Edit account information
+		- Full name
+		- Email
+		- Password
+		- Plan type
+			- Upgrade to paid if free
+			- Downgrade to free if paid
+				- This will make all private wikis public
+		- Delete account
+			- Cascade to delete all wikis and content
+- Dashboard
+	- List wikis on right side
+	- Left side, show current activity
+		- News feed
+			- Changes made to your wikis
+			- Actions made by users you are following
+				- Their edits
+				- They create a new wiki
+		- Your actions
+			- Wiki edits
+			- Wiki creations
+			- Wiki deletions
+		- Wiki change requests
+			- Page changes that people are suggesting that dont have access to your wiki(s)
+		- Collaborator requests
+			- Users that want access to collaborate on your wikis

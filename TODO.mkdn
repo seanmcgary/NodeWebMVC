@@ -1,0 +1,8 @@
+TODO List
+===
+
+- Create model and controller generation scripts
+	- location
+	- name
+	- base, or extend another object
+	- test

@@ -1,0 +1,5 @@
+#!/bin/sh
+
+mkdir ../www
+
+cd ../www && mkdir controllers && mkdir models && mkdir static && mkdir views
